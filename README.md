@@ -1,6 +1,6 @@
 # sphere-order-xml-import
 
-[![Build Status](https://secure.travis-ci.org/smueller/sphere-order-xml-import.png?branch=master)](http://travis-ci.org/smueller/sphere-order-xml-import) [![Coverage Status](https://coveralls.io/repos/smueller/sphere-order-xml-import/badge.png)](https://coveralls.io/r/smueller/sphere-order-xml-import) [![Dependency Status](https://david-dm.org/smueller/sphere-order-xml-import.png?theme=shields.io)](https://david-dm.org/smueller/sphere-order-xml-import) [![devDependency Status](https://david-dm.org/smueller/sphere-order-xml-import/dev-status.png?theme=shields.io)](https://david-dm.org/smueller/sphere-order-xml-import#info=devDependencies)
+[![Build Status](https://secure.travis-ci.org/sphereio/sphere-order-xml-import.png?branch=master)](http://travis-ci.org/sphereio/sphere-order-xml-import) [![Coverage Status](https://coveralls.io/repos/sphereio/sphere-order-xml-import/badge.png)](https://coveralls.io/r/sphereio/sphere-order-xml-import) [![Dependency Status](https://david-dm.org/sphereio/sphere-order-xml-import.png?theme=shields.io)](https://david-dm.org/sphereio/sphere-order-xml-import) [![devDependency Status](https://david-dm.org/sphereio/sphere-order-xml-import/dev-status.png?theme=shields.io)](https://david-dm.org/sphereio/sphere-order-xml-import#info=devDependencies)
 
 
 Update existing order status using XML files as source.
