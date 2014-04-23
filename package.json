@@ -45,7 +45,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-shell": "~0.6.4",
     "istanbul": "~0.2.4",
-    "jasmine-node": "~2.0.0-beta4",
+    "jasmine-node": "~1.14.3",
     "sphere-coffeelint": "git://github.com/sphereio/sphere-coffeelint.git#master"
   },
   "keywords": []
