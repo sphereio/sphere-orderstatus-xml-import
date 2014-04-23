@@ -18,12 +18,11 @@ notifications:
     format: html
     on_success: change
     on_failure: change
-SPHERE_PROJECT_KEY:
-  secure: iWDC/SmlIqQFFoN00X7doHCoTbFiOTOybZZOAi18LxvYbs9+EIWHDPfjvaPLYuz+w1ZgU2xRjaG3NaplfIi1LJ9qWmf9KCsiBsentjJBlHpR4Gt73T7KIInA1M1A7ykOJhjsm/7ALU1M1gLXxBTaUzosN3r98XfjISJK10dHDHE=
-SPHERE_CLIENT_ID:
-  secure: Z+vP4tGYr6K2mc6rfk/9TafvqcLLiz6jS/Nu9YePmcSZbYO5VMS0qXbGdyyNX3PETaQqjwGKNkv2+wgwFTZVsrvg8VC0lqXGHBolSLjhSInxPzS2tFlZnHglzcvo9jwSlxnrzpLO+w8JPptlQTV4tACPIWoj5/m0WOn7aWLF9zg=
-SPHERE_CLIENT_SECRET:
-  secure: X95FxrLR+IBlHZ/+gjNK1bdGkfwEafd8A7M3+2zpb7u/u5Au+tmO4nWmNOA6LCx7Em2tv3VaYh0eOtyXjT3TOPO2e2A/OFkU8ny0vhaNmaOy9p4BIMD2v/I2c8GuRpGJSKqQlZ429yhrWLekiQ6LAWADhfXYmHmyELUEMetMXtQ=
 branches:
   only:
   - master
+env:
+  global:
+  - secure: TVMCR2cDxJp+7FkodLUhoJeJThgHOxqaJjLE8K9z4fDG2rsxfmE0idD7CeSiPB6mOpw5StBJflCoTEtbjw80IlM6RtSuD9EE8nNwycPvcns4yN6/5ou0qd4xXGCO2Qa6WQYSfSVNRGk9ycMLjnvvjEUU/CT7xUIF0axmgcZdaXY=
+  - secure: O95I97TG/5oEuafQtxdIZ5oLhpx27w8euccW9Y4jHpCPuukLYM805xhbhR05DCueoJY/2AmPAn/ZyDptiBjv1ZcnhQfQUmjsuA696Ueo/58TkUG3NU+poaa2gghNs3muw05M2kStnAO2F7OYuOlB2V7zxPVV6Nr0oKGSAKGnkAY=
+  - secure: BjFZS033rF5ecQ37P4dveQn5LEcPpNv68wfvwB9DMeVzugCxd3scPOKNlNX8GYsJvh2AH9A11pXqkDT9R1w9VlCdLdViOlc7CqiRQWoOd7wPG+WKDDvz5g+RJJqe0ANcAhaACkKvF9RioWhP8oMKjRv6CBdKg7g5dGq2FRTojno=
