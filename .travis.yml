@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 before_script:
 - npm install -g grunt-cli
 - ./create_config.sh
@@ -11,16 +11,16 @@ script:
 notifications:
   hipchat:
     rooms:
-      secure:
+      secure: NC+bAebI0ZZ//zNRPe6riO+h4KG3FahEmlrh0pHOA03lMjl2cM2nujG0APbgqhJIOPoN4d0TzqLIPTo6m7vu00Qb2dhoZVmnoOeDHgt1V40GsCI0a4iR0da+GBRRHxWyNhEPMjjxZJojvEcztynoVa0WXNFocuVH5taSdYoArZo=
     template:
-    - ! '%{repository}#%{build_number} (%{author}): %{message} (<a href="%{build_url}">Details</a>/<a
+    - '%{repository}#%{build_number} (%{author}): %{message} (<a href="%{build_url}">Details</a>/<a
       href="%{compare_url}">Compare</a>)'
     format: html
     on_success: change
     on_failure: change
-SPHERE_PROJECT_KEY:
-SPHERE_CLIENT_ID:
-SPHERE_CLIENT_SECRET:
+SPHERE_PROJECT_KEY: 
+SPHERE_CLIENT_ID: 
+SPHERE_CLIENT_SECRET: 
 branches:
   only:
-    - master
+  - master
