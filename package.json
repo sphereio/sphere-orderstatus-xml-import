@@ -1,0 +1,52 @@
+{
+  "name": "sphere-order-xml-import",
+  "description": "Update existing order status using XML files as source.",
+  "version": "0.1.0",
+  "homepage": "http://sphere.io/",
+  "author": {
+    "name": "Sven Mueller",
+    "email": "sven.mueller@commercetools.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sphereio/sphere-order-xml-import.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sphereio/sphere-order-xml-import/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://sphere.io//blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/sphere-order-xml-import",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt coverage"
+  },
+  "dependencies": {
+    "optimist": "0.6.0",
+    "underscore": "~1.6.0",
+    "underscore.string": "2.3.3",
+    "q": "~1.0.0"
+  },
+  "devDependencies": {
+    "coveralls": "~2.7.1",
+    "grunt": "~0.4.2",
+    "grunt-bump": "~0.0.13",
+    "grunt-cli": "~0.1.13",
+    "grunt-coffeelint": "~0.0.8",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-coffee": "~0.10.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-shell": "~0.6.4",
+    "istanbul": "~0.2.4",
+    "jasmine-node": "~1.13.1",
+    "sphere-coffeelint": "git://github.com/sphereio/sphere-coffeelint.git#master"
+  },
+  "keywords": []
+}
