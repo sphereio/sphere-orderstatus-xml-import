@@ -1,5 +1,5 @@
 {
-  "name": "sphere-order-xml-import",
+  "name": "sphere-orderstatus-xml-import ",
   "description": "Update existing order status using XML files as source.",
   "version": "0.1.0",
   "homepage": "http://sphere.io/",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sphereio/sphere-order-xml-import.git"
+    "url": "git://github.com/sphereio/sphere-orderstatus-xml-import .git"
   },
   "bugs": {
-    "url": "https://github.com/sphereio/sphere-order-xml-import/issues"
+    "url": "https://github.com/sphereio/sphere-orderstatus-xml-import /issues"
   },
   "licenses": [
     {
@@ -20,7 +20,7 @@
       "url": "http://sphere.io//blob/master/LICENSE-MIT"
     }
   ],
-  "main": "lib/sphere-order-xml-import",
+  "main": "lib/sphere-orderstatus-xml-import ",
   "engines": {
     "node": ">= 0.10.0"
   },
