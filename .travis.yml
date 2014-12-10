@@ -11,8 +11,6 @@ script:
 - npm test
 - node lib/run.js --projectKey ${SPHERE_PROJECT_KEY} --clientId ${SPHERE_CLIENT_ID}
   --clientSecret ${SPHERE_CLIENT_SECRET} --file data/example.xml
-- node lib/run.js --projectKey ${SPHERE_PROJECT_KEY} --clientId ${SPHERE_CLIENT_ID}
-  --clientSecret ${SPHERE_CLIENT_SECRET} --file data/example.csv
 notifications:
   hipchat:
     rooms:
