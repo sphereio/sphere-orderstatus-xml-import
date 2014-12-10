@@ -1,28 +1,30 @@
 language: node_js
 node_js:
 - '0.10'
+branches:
+  only:
+  - master
 before_script:
 - npm install -g grunt-cli
 - ./create_config.sh
 script:
 - npm test
 - node lib/run.js --projectKey ${SPHERE_PROJECT_KEY} --clientId ${SPHERE_CLIENT_ID}
-  --clientSecret ${SPHERE_CLIENT_SECRET}
+  --clientSecret ${SPHERE_CLIENT_SECRET} --file data/example.xml
+- node lib/run.js --projectKey ${SPHERE_PROJECT_KEY} --clientId ${SPHERE_CLIENT_ID}
+  --clientSecret ${SPHERE_CLIENT_SECRET} --file data/example.csv
 notifications:
   hipchat:
     rooms:
-      secure: NC+bAebI0ZZ//zNRPe6riO+h4KG3FahEmlrh0pHOA03lMjl2cM2nujG0APbgqhJIOPoN4d0TzqLIPTo6m7vu00Qb2dhoZVmnoOeDHgt1V40GsCI0a4iR0da+GBRRHxWyNhEPMjjxZJojvEcztynoVa0WXNFocuVH5taSdYoArZo=
+      secure: EK6da70n2lhrvkbPWxGFfPZ2K9oTJFI+wlJw85fQ32f3hL7WKfHfdhbKnoTLbEeeoKVLJvb5KfW4fNwJpjajTr5+5i+k0g/HM1fEfS1UiqUyZAaLK7JwDLX6JFtVl7c6l/MimuNxHF5OXq5FplqoiOwz12BobVQaz+Ou9sOWitE=
     template:
-    - '%{repository}#%{build_number} (%{author}): %{message} (<a href="%{build_url}">Details</a>/<a
+    - ! '%{repository}#%{build_number} (%{author}): %{message} (<a href="%{build_url}">Details</a>/<a
       href="%{compare_url}">Compare</a>)'
     format: html
     on_success: change
     on_failure: change
-branches:
-  only:
-  - master
 env:
   global:
-  - secure: TVMCR2cDxJp+7FkodLUhoJeJThgHOxqaJjLE8K9z4fDG2rsxfmE0idD7CeSiPB6mOpw5StBJflCoTEtbjw80IlM6RtSuD9EE8nNwycPvcns4yN6/5ou0qd4xXGCO2Qa6WQYSfSVNRGk9ycMLjnvvjEUU/CT7xUIF0axmgcZdaXY=
-  - secure: O95I97TG/5oEuafQtxdIZ5oLhpx27w8euccW9Y4jHpCPuukLYM805xhbhR05DCueoJY/2AmPAn/ZyDptiBjv1ZcnhQfQUmjsuA696Ueo/58TkUG3NU+poaa2gghNs3muw05M2kStnAO2F7OYuOlB2V7zxPVV6Nr0oKGSAKGnkAY=
-  - secure: BjFZS033rF5ecQ37P4dveQn5LEcPpNv68wfvwB9DMeVzugCxd3scPOKNlNX8GYsJvh2AH9A11pXqkDT9R1w9VlCdLdViOlc7CqiRQWoOd7wPG+WKDDvz5g+RJJqe0ANcAhaACkKvF9RioWhP8oMKjRv6CBdKg7g5dGq2FRTojno=
+  - secure: Vuritwxdg0sw6hv+htsZ6la0l8uupx/lDwv8L9IAmu6TMpA+rhS/v5rGzyuOe8N2cccOAkmEc4LbHBFZjs6+CcA3XWBmRtMijHwm0tIQT9lfqO9KSf9uuo0NnednAv7wXd45A9ablPWAwHiA4Ud5EwuZOeff5LG/og42aRgplyA=
+  - secure: b9uEfx04h7VSuFvyLK1LdPEg7K4sCpjgboTXho+gGHQ22uRFYLHq//RNwNd1gGFC3/JezF+aRoboQ5Zu3vz+5mFZwG045w5NKV3jBEkgqWhDd1Dq8nGvF2qnWV+bo3RsBVPxDs8R1OW0DvPrO6wJkSypTW2LeSig1yAQn4iAn5s=
+  - secure: hJ3aIoG/WcW0i1qs+EuNt6Lc05GDhLcD2HhjLccWldB0gdARKedQ3ZsOOf7P6yfRqQflpcU9gG5xvw/Ep+sv7XHqBWgLu/kXFPXhIMj1mSJfY4bqNxdyYFx797HstO8ef+j2JRksGFsRPx9fxGdsDzm6W9wZrA3bYLcjaryqyWI=

@@ -1,9 +1,8 @@
 .DS_Store
 node_modules
-npm-debug.log
+*.log
 build
 lib
 test
-.coveralls.yml
-coverage
 config.js
+sftp-credentials.json
