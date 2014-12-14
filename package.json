@@ -47,7 +47,7 @@
     "tmp": "0.0.23",
     "underscore": "1.7.0",
     "underscore-mixins": "*",
-    "xml2js": "0.4.2"
+    "xml2js": "0.4.4"
   },
   "devDependencies": {
     "coveralls": "2.10.0",
