@@ -16,8 +16,8 @@ describe 'xmlHelpers', ->
         e =
           root:
             row: [
-              { id: [ '1' ] }
-              { id: [ '2' ] }
+              { id: '1' }
+              { id: '2' }
             ]
         expect(result).toEqual e
 
@@ -25,11 +25,3 @@ describe 'xmlHelpers', ->
       xml = "<root><root>"
       xmlHelpers.xmlTransform xml, (err, result) ->
         expect(err).toMatch /Error/
-
-  describe "#xmlVal", ->
-    it "works", ->
-      xml = "<root><row><code>foo</code>123</row></root>"
-      xmlHelpers.xmlTransform xml, (err, result) ->
-        expect(xmlHelpers.xmlVal(result.root.row[0], 'code')).toBe 'foo'
-        expect(result.root.row[0]['_']).toBe '123'
-        expect(xmlHelpers.xmlVal(result.root.row[0], 'foo', 'defaultValue')).toBe 'defaultValue'

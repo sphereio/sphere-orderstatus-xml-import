@@ -1,7 +1,7 @@
 _ = require 'underscore'
 _.mixin require('underscore-mixins')
 Promise = require 'bluebird'
-{SphereClient, InventorySync} = require 'sphere-node-sdk'
+{SphereClient, OrderSync} = require 'sphere-node-sdk'
 package_json = require '../package.json'
 xmlHelpers = require './xmlhelpers'
 
@@ -10,7 +10,7 @@ LOG_PREFIX = "[SphereOrderStatusImport] "
 class OrderStatusImport
 
   constructor: (@logger, options = {}) ->
-    @sync = new InventorySync
+    @sync = new OrderSync
     @client = new SphereClient options
     @_resetSummary()
 
@@ -44,6 +44,58 @@ class OrderStatusImport
         if err?
           reject "#{LOG_PREFIX}Error on parsing XML: #{err}"
         else
+          @_mapXML xml.order
+          # lookup order by orderNumber
+          # update order
+          #  - orderState
+          #  - shipmentState
+          #  - parcel
+          # trigger tacking id email
           resolve()
+
+  _parcelExists: (order, trackingId) ->
+    _.where order.shippingInfo.deliveries.parcels,
+      {trackingID: trackingId}
+
+  _mapXML: (orderStatus) =>
+    if orderStatus?
+      @client.orders.where("orderNumber=\"#{orderStatus.orderNumber}\"").fetch()
+      .then (result) =>
+        originalOrder = result.body.results[0]
+
+        changedOrder = @_mergeOrderStatus originalOrder, orderStatus
+
+        # compute update actions
+        syncedActions = @sync.buildActions changedOrder, originalOrder
+
+        if syncedActions.shouldUpdate()
+          @client.orders.byId(syncedActions.getUpdateId()).update(syncedActions.getUpdatePayload())
+        else
+          Promise.resolve statusCode: 304
+
+  _mergeOrderStatus: (originalOrder, orderStatus) ->
+    changedOrder = _.deepClone originalOrder
+
+    # FIX: xml contains 'Completed' instead of allow value 'Complete'
+    orderStatus.orderState = 'Complete' if orderStatus.orderState == 'Completed'
+
+    # FIX: convert boolean string representation to booelan value
+    orderStatus.shippingInfo.deliveries.parcels.trackingData.isReturn =
+      if orderStatus.shippingInfo.deliveries.parcels.trackingData.isReturn.isReturn == 'true' then true else false
+
+    changedOrder.orderState = orderStatus.orderState
+    changedOrder.shipmentState = orderStatus.shipmentState
+
+    # check if there is already a parcel with that tracking id
+    if not @_parcelExists originalOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData
+      # add delivery
+      changedOrder.shippingInfo.deliveries.push
+        'parcels': [orderStatus.shippingInfo.deliveries.parcels]
+        # we assume that all lineitems are sent with this parcel
+        'items': _.map originalOrder.lineItems, (item) ->
+          id: item.id
+          quantity: item.quantity
+
+    changedOrder
 
 module.exports = OrderStatusImport
