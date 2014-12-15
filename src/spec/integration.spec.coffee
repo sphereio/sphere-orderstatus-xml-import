@@ -49,6 +49,6 @@ describe 'integration test', ->
 
     it 'Nothing to do', (done) ->
       @orderstatusimport.run('<root></root>')
-      .then => done()
+      .then -> done()
       .catch (err) -> done(_.prettify err)
     , 10000 # 10sec
