@@ -50,9 +50,5 @@ describe 'integration test', ->
     it 'Nothing to do', (done) ->
       @orderstatusimport.run('<root></root>')
       .then => done()
-      #@orderstatusimport.summaryReport()
-      #.then (message) ->
-    #    expect(message).toBe 'Summary: nothing to do, everything is fine'
-    #    done()
       .catch (err) -> done(_.prettify err)
     , 10000 # 10sec
