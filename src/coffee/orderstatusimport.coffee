@@ -47,7 +47,7 @@ class OrderStatusImport
       .then (result) =>
         originalOrder = result.body.results[0]
 
-        changedOrder = @_mergeOrderStatus originalOrder, orderStatus
+        changedOrder = @_mergeOrder originalOrder, orderStatus
 
         # compute update actions
         syncedActions = @sync.buildActions changedOrder, originalOrder
@@ -57,7 +57,7 @@ class OrderStatusImport
         else
           Promise.resolve statusCode: 304
 
-  _mergeOrderStatus: (originalOrder, orderStatus) ->
+  _mergeOrder: (originalOrder, orderStatus) ->
     changedOrder = _.deepClone originalOrder
 
     # FIX: xml contains 'Completed' instead of allow value 'Complete'
