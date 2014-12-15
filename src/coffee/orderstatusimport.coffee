@@ -31,12 +31,6 @@ class OrderStatusImport
           reject "#{LOG_PREFIX}Error on parsing XML: #{err}"
         else
           @_mapXML xml.order
-          # lookup order by orderNumber
-          # update order
-          #  - orderState
-          #  - shipmentState
-          #  - parcel
-          # trigger tacking id email
           resolve()
 
   _parcelExists: (order, trackingId) ->
