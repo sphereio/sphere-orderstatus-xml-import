@@ -20,3 +20,30 @@ describe 'OrderStatusImport', ->
 
   it 'should initialize', ->
     expect(@import).toBeDefined()
+
+  it "should return true if an parcel with given tracking already exists", ->
+
+    trackingId = '10000000000000'
+
+    order =
+      shippingInfo:
+        deliveries: [
+          parcels: [
+            trackingData:
+              trackingID: trackingId
+          ]
+        ]
+
+    parcelExists = @import._parcelExists order, trackingId
+    expect(parcelExists).toMatch(true)
+
+  it "should return false if an parcel with given tracking not exists", ->
+
+    trackingId = '10000000000000'
+
+    order =
+      shippingInfo:
+        deliveries: []
+
+    parcelExists = @import._parcelExists order, trackingId
+    expect(parcelExists).toMatch(false)

@@ -24,20 +24,6 @@ class OrderStatusImport
     @_resetSummary()
     @performXML fileContent
 
-  summaryReport: (filename) ->
-    if @summary.created is 0 and @summary.updated is 0
-      message = 'Summary: nothing to do, everything is fine'
-    else
-      message = "Summary: there were #{@summary.created + @summary.updated} imported stocks " +
-        "(#{@summary.created} were new and #{@summary.updated} were updates)"
-
-    if @summary.emptySKU > 0
-      warning = "Found #{@summary.emptySKU} empty SKUs from file input"
-      warning += " '#{filename}'" if filename
-      @logger.warn warning
-
-    Promise.resolve(message)
-
   performXML: (fileContent) =>
     new Promise (resolve, reject) =>
       xmlHelpers.xmlTransform xmlHelpers.xmlFix(fileContent), (err, xml) =>
@@ -54,8 +40,12 @@ class OrderStatusImport
           resolve()
 
   _parcelExists: (order, trackingId) ->
-    _.where order.shippingInfo.deliveries.parcels,
-      {trackingID: trackingId}
+    result = _.chain(order.shippingInfo.deliveries)
+    .map (delivery) -> delivery.parcels
+    .flatten()
+    .find (parcel) -> parcel.trackingData.trackingID is trackingId
+    .some()
+    .value()
 
   _mapXML: (orderStatus) =>
     if orderStatus?
