@@ -1,13 +1,13 @@
 <order>
   <xsdVersion>0.3</xsdVersion>
-  <orderNumber>100790</orderNumber>
-  <orderState>Completed</orderState>
+  <orderNumber>100791</orderNumber>
+  <orderState>Complete</orderState>
   <shipmentState>Shipped</shipmentState>
   <shippingInfo>
     <deliveries>
       <parcels>
         <trackingData>
-          <trackingID>00340434152712408817</trackingID>
+          <trackingId>00340434152712408817</trackingId>
           <carrier>DHL</carrier>
           <isReturn>false</isReturn>
         </trackingData>

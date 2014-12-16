@@ -63,10 +63,7 @@ importFn = (importer, fileName) ->
   .then (content) ->
     logger.debug 'File read, running import'
     importer.run(content)
-  .then -> importer.summaryReport(fileName)
-  .then (message) ->
-    logger.withField({filename: fileName}).info message
-    Promise.resolve fileName
+  .then -> Promise.resolve fileName
 
 readJsonFromPath = (path) ->
   return Promise.resolve({}) unless path

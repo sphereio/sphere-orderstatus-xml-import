@@ -12,16 +12,8 @@ class OrderStatusImport
   constructor: (@logger, options = {}) ->
     @sync = new OrderSync
     @client = new SphereClient options
-    @_resetSummary()
-
-  _resetSummary: ->
-    @summary =
-      emptySKU: 0
-      created: 0
-      updated: 0
 
   run: (fileContent) ->
-    @_resetSummary()
     @performXML fileContent
 
   performXML: (fileContent) =>
@@ -31,22 +23,26 @@ class OrderStatusImport
           reject "#{LOG_PREFIX}Error on parsing XML: #{err}"
         else
           @_mapXML xml.order
-          resolve()
+          .then (result) -> resolve result
+          .catch (err) -> reject err
+          .done()
 
   _parcelExists: (order, trackingId) ->
     result = _.chain(order.shippingInfo.deliveries)
     .map (delivery) -> delivery.parcels
     .flatten()
-    .find (parcel) -> parcel.trackingData.trackingID is trackingId
+    .find (parcel) -> parcel.trackingData.trackingId is trackingId
     .some()
     .value()
 
   _mapXML: (orderStatus) =>
-    if orderStatus?
-      @client.orders.where("orderNumber=\"#{orderStatus.orderNumber}\"").fetch()
-      .then (result) =>
-        originalOrder = result.body.results[0]
+    @client.orders.where("orderNumber=\"#{orderStatus.orderNumber}\"").fetch()
+    .then (result) =>
+      originalOrder = result.body.results[0]
 
+      if result.body.total == 0
+        Promise.reject "#{LOG_PREFIX} No order found with orderNumber '#{orderStatus.orderNumber}'."
+      else if result.body.total == 1
         changedOrder = @_mergeOrder originalOrder, orderStatus
 
         # compute update actions
@@ -60,18 +56,16 @@ class OrderStatusImport
   _mergeOrder: (originalOrder, orderStatus) ->
     changedOrder = _.deepClone originalOrder
 
-    # FIX: xml contains 'Completed' instead of allow value 'Complete'
-    orderStatus.orderState = 'Complete' if orderStatus.orderState == 'Completed'
-
     # FIX: convert boolean string representation to booelan value
+    # CHECK
     orderStatus.shippingInfo.deliveries.parcels.trackingData.isReturn =
-      if orderStatus.shippingInfo.deliveries.parcels.trackingData.isReturn.isReturn == 'true' then true else false
+      if orderStatus.shippingInfo.deliveries.parcels.trackingData.isReturn == 'true' then true else false
 
     changedOrder.orderState = orderStatus.orderState
     changedOrder.shipmentState = orderStatus.shipmentState
 
     # check if there is already a parcel with that tracking id
-    if not @_parcelExists originalOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData.trackingID
+    if not @_parcelExists originalOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData.trackingId
       # add delivery
       changedOrder.shippingInfo.deliveries.push
         'parcels': [orderStatus.shippingInfo.deliveries.parcels]

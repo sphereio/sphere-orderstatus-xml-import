@@ -30,7 +30,7 @@ describe 'OrderStatusImport', ->
         deliveries: [
           parcels: [
             trackingData:
-              trackingID: trackingId
+              trackingId: trackingId
           ]
         ]
 
@@ -46,7 +46,7 @@ describe 'OrderStatusImport', ->
         deliveries: []
 
     parcelExists = @import._parcelExists order, trackingId
-    expect(parcelExists).toMatch(false)
+    expect(parcelExists).toMatch false
 
   it "should merge order status with given order", ->
 
@@ -81,13 +81,13 @@ describe 'OrderStatusImport', ->
     orderStatus =
       xsdVersion: '0.3'
       orderNumber: '100790'
-      orderState: 'Completed'
+      orderState: 'Complete'
       shipmentState: 'Shipped'
       shippingInfo:
         deliveries:
           parcels:
             trackingData:
-              trackingID: '00340434152712408817'
+              trackingId: '00340434152712408817'
               carrier: 'DHL'
               isReturn: 'false'
 
@@ -110,7 +110,7 @@ describe 'OrderStatusImport', ->
         deliveries: [
           parcels: [
             trackingData:
-              trackingID: '00340434152712408817'
+              trackingId: '00340434152712408817'
               carrier: 'DHL'
               isReturn: false
           ]
@@ -140,7 +140,7 @@ describe 'OrderStatusImport', ->
 
     expect(mergedOrder).toEqual expectedMergedOrder
 
-  it "should merge order status with given order without already created parcel /w trackingID", ->
+  it "should merge order status with given order without already created parcel /w trackingId", ->
     order =
       type: 'Order'
       id: '3ca388b0-1d7f-4496-b60b-3eafa90cdc39'
@@ -173,7 +173,7 @@ describe 'OrderStatusImport', ->
               parcels: [
                 {
                   trackingData:
-                    trackingID: '00340434152712408817'
+                    trackingId: '00340434152712408817'
                     carrier: 'DHL'
                     isReturn: false
                 }
@@ -194,13 +194,13 @@ describe 'OrderStatusImport', ->
     orderStatus =
       xsdVersion: '0.3'
       orderNumber: '100790'
-      orderState: 'Completed'
+      orderState: 'Complete'
       shipmentState: 'Shipped'
       shippingInfo:
         deliveries:
           parcels:
             trackingData:
-              trackingID: '00340434152712408817'
+              trackingId: '00340434152712408817'
               carrier: 'DHL'
               isReturn: 'false'
 
@@ -233,7 +233,7 @@ describe 'OrderStatusImport', ->
           ]
           parcels: [
             trackingData:
-              trackingID: '00340434152712408817'
+              trackingId: '00340434152712408817'
               carrier: 'DHL'
               isReturn: false
           ]
