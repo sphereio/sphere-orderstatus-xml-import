@@ -35,9 +35,11 @@ class OrderStatusImport
 
   _parcelExists: (order, trackingId) ->
     result = _.chain(order.shippingInfo.deliveries)
-    .map (delivery) -> delivery.parcels
+    .map (delivery) ->
+      delivery.parcels
     .flatten()
-    .find (parcel) -> parcel.trackingData.trackingID is trackingId
+    .find (parcel) ->
+      parcel.trackingData.trackingID is trackingId
     .some()
     .value()
 
@@ -71,7 +73,7 @@ class OrderStatusImport
     changedOrder.shipmentState = orderStatus.shipmentState
 
     # check if there is already a parcel with that tracking id
-    if not @_parcelExists originalOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData
+    if not @_parcelExists originalOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData.trackingID
       # add delivery
       changedOrder.shippingInfo.deliveries.push
         'parcels': [orderStatus.shippingInfo.deliveries.parcels]
