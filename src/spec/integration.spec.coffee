@@ -8,8 +8,6 @@ OrderStatusImport = require '../lib/orderstatusimport'
 {SphereClient} = require 'sphere-node-sdk'
 
 describe 'integration test', ->
-  
-  jasmine.getEnv().defaultTimeoutInterval = 10000
 
   beforeEach (done) ->
 
@@ -39,6 +37,7 @@ describe 'integration test', ->
       @order = result.body
       done()
     .catch (error) -> done(_.prettify(error))
+  , 10000
 
   afterEach (done) ->
 
@@ -52,6 +51,7 @@ describe 'integration test', ->
       @product = null
       @productType = null
       @order = null
+  , 10000
 
   describe 'Update order state', ->
 
@@ -72,6 +72,7 @@ describe 'integration test', ->
         expect(result.body.shippingInfo.deliveries[0].parcels[0].trackingData.isReturn).toBe isReturn
         done()
       .catch (err) -> done(_.prettify err)
+    , 10000
 
     it 'it should update orderState, shipmentState and shippingInfo of an existing order', (done) ->
       trackingId = uniqueId 't-'
@@ -81,6 +82,7 @@ describe 'integration test', ->
       .catch (err) ->
         expect(err).toBe '[SphereOrderStatusImport]  No order found with orderNumber \'unavailable\'.'
         done()
+    , 10000
 
     it 'it should update orderState, shipmentState and shippingInfo of an existing order only once', (done) ->
       trackingId = uniqueId 't-'
@@ -102,6 +104,7 @@ describe 'integration test', ->
         expect(result3.body.version).toBe @result1.body.version
         done()
       .catch (err) -> done(_.prettify err)
+    , 10000
 
   ###
   helper methods
