@@ -1,12 +1,12 @@
 {
   "name": "sphere-orderstatus-xml-import",
-  "description": "Import your stock information into SPHERE.IO's inventory from CSV or XML, with SFTP support!",
-  "version": "0.6.1",
+  "description": "Import order status to SPHERE.IO.",
+  "version": "0.1.0",
   "homepage": "https://github.com/sphereio/sphere-orderstatus-xml-import",
   "private": false,
   "author": {
-    "name": "Hajo Eichler",
-    "email": "hajo.eichler@commercetools.de"
+    "name": "Sven Mueller",
+    "email": "sven.mueller@commercetools.de"
   },
   "maintainers": [
     {
@@ -28,7 +28,7 @@
     }
   ],
   "bin": {
-    "orderstatus-xml-import": "bin/orderstatus-xml-import"
+    "orderstatus-import": "bin/orderstatus-import"
   },
   "main": "lib/run",
   "engines": {
@@ -66,9 +66,8 @@
   "keywords": [
     "sphere",
     "sphereio",
-    "stock",
+    "order",
     "import",
-    "csv",
     "xml",
     "sftp"
   ]
