@@ -74,7 +74,7 @@ describe 'integration test', ->
       .catch (err) -> done(_.prettify err)
     , 10000
 
-    it 'it should update orderState, shipmentState and shippingInfo of an existing order', (done) ->
+    it 'it should throw an error if no matching order is found', (done) ->
       trackingId = uniqueId 't-'
       carrier = 'DHL'
       isReturn = false
