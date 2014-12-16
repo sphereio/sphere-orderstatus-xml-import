@@ -35,11 +35,9 @@ class OrderStatusImport
 
   _parcelExists: (order, trackingId) ->
     result = _.chain(order.shippingInfo.deliveries)
-    .map (delivery) ->
-      delivery.parcels
+    .map (delivery) -> delivery.parcels
     .flatten()
-    .find (parcel) ->
-      parcel.trackingData.trackingID is trackingId
+    .find (parcel) -> parcel.trackingData.trackingID is trackingId
     .some()
     .value()
 
