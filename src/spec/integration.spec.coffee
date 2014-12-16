@@ -8,6 +8,8 @@ OrderStatusImport = require '../lib/orderstatusimport'
 {SphereClient} = require 'sphere-node-sdk'
 
 describe 'integration test', ->
+  
+  jasmine.getEnv().defaultTimeoutInterval = 10000
 
   beforeEach (done) ->
 
