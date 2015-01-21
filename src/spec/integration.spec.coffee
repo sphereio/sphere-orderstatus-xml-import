@@ -74,6 +74,22 @@ describe 'integration test', ->
       .catch (err) -> done(_.prettify err)
     , 10000
 
+    it 'it should add syncinfo if order is updated', (done) ->
+      trackingId = uniqueId 't-'
+      carrier = 'DHL'
+      isReturn = false
+      @orderstatusimport.run orderStateMock(@order.orderNumber, trackingId, carrier, isReturn)
+      .then =>
+        @client.orders.byId(@order.id).fetch()
+      .then (result) ->
+        expect(result.statusCode).toBe 200
+        expect(result.body.syncInfo.length).toBe 1
+        expect(result.body.syncInfo[0].externalId).toBe result.body.shippingInfo.deliveries[0].parcels[0].trackingData.trackingId
+        expect(result.body.syncInfo[0].channel.typeId).toBe 'channel'
+        done()
+      .catch (err) -> done(_.prettify err)
+    , 10000
+
     it 'it should throw an error if no matching order is found', (done) ->
       trackingId = uniqueId 't-'
       carrier = 'DHL'

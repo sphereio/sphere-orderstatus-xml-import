@@ -7,6 +7,9 @@ xmlHelpers = require './xmlhelpers'
 
 LOG_PREFIX = "[SphereOrderStatusImport] "
 
+CHANNEL_KEY = 'OrderStatusImport'
+CHANNEL_ROLE = 'OrderImport'
+
 class OrderStatusImport
 
   constructor: (@logger, options = {}) ->
@@ -14,7 +17,10 @@ class OrderStatusImport
     @client = new SphereClient options
 
   run: (fileContent) ->
-    @performXML fileContent
+    @client.channels.ensure(CHANNEL_KEY, CHANNEL_ROLE)
+    .then (result) =>
+      @channel = result.body
+      @performXML fileContent
 
   performXML: (fileContent) =>
     new Promise (resolve, reject) =>
@@ -50,6 +56,14 @@ class OrderStatusImport
 
         if syncedActions.shouldUpdate()
           @client.orders.byId(syncedActions.getUpdateId()).update(syncedActions.getUpdatePayload())
+          .then (result) =>
+            updatedOrder = result.body
+            if result.statusCode != 200
+              Promise.reject "#{LOG_PREFIX} Error while updating '#{orderStatus.orderNumber}'."
+            else
+              @_syncOrder updatedOrder, orderStatus.shippingInfo.deliveries.parcels.trackingData.trackingId
+              .then =>
+                result
         else
           Promise.resolve statusCode: 304
 
@@ -75,5 +89,17 @@ class OrderStatusImport
           quantity: item.quantity
 
     changedOrder
+
+  _syncOrder: (order, externalId) ->
+    data =
+      version: order.version
+      actions: [
+        action: 'updateSyncInfo'
+        channel:
+          typeId: 'channel'
+          id: @channel.id
+        externalId: externalId
+      ]
+    @client.orders.byId(order.id).update(data)
 
 module.exports = OrderStatusImport
